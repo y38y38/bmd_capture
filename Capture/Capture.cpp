@@ -50,6 +50,7 @@
 #include "Capture.h"
 #include "Config.h"
 
+#include "encoder.h"
 static pthread_mutex_t	g_sleepMutex;
 static pthread_cond_t	g_sleepCond;
 static int				g_videoOutputFile = -1;
@@ -83,6 +84,9 @@ ULONG DeckLinkCaptureDelegate::Release(void)
 	}
 	return newRefValue;
 }
+
+struct encoder_param param;
+
 
 HRESULT DeckLinkCaptureDelegate::VideoInputFrameArrived(IDeckLinkVideoInputFrame* videoFrame, IDeckLinkAudioInputPacket* audioFrame)
 {
@@ -243,6 +247,7 @@ int main(int argc, char *argv[])
 
 	DeckLinkCaptureDelegate*		delegate = NULL;
 
+	encoder_init();
 	pthread_mutex_init(&g_sleepMutex, NULL);
 	pthread_cond_init(&g_sleepCond, NULL);
 

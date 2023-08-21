@@ -39,8 +39,9 @@
 
 CC=g++
 SDK_PATH=../include
-CFLAGS=-Wno-multichar -I $(SDK_PATH) -fno-rtti
-LDFLAGS=-lm -ldl -lpthread
+ENCODER_PATH=../../prores_encoder/
+CFLAGS=-Wno-multichar -I $(SDK_PATH) -I $(ENCODER_PATH)  -fno-rtti
+LDFLAGS=-L $(ENCODER_PATH) -lm -ldl -lpthread -lproresencoder
 
 Capture: Capture.cpp Config.cpp $(SDK_PATH)/DeckLinkAPIDispatch.cpp
 	$(CC) -o Capture Capture.cpp Config.cpp $(SDK_PATH)/DeckLinkAPIDispatch.cpp $(CFLAGS) $(LDFLAGS)
